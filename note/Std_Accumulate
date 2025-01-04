@@ -1,0 +1,207 @@
+在 C++ 中，**`std::accumulate`** 是一个用于对容器中的元素进行累加操作的算法，定义在头文件 `<numeric>` 中。它可以对容器中的元素执行简单的求和操作，也可以通过自定义操作来实现更复杂的累积操作。
+
+---
+
+### **`std::accumulate` 的语法**
+
+#include <numeric>
+
+// 语法：
+T accumulate(InputIterator first, InputIterator last, T init);
+T accumulate(InputIterator first, InputIterator last, T init, BinaryOperation op);
+
+
+#### 参数说明：
+1. **`first` 和 `last`**：要操作的范围，分别是起始迭代器和结束迭代器。
+2. **`init`**：初始值，用于累加的起点。
+3. **`op`**（可选）：自定义的二元操作函数或函数对象，用于指定累积规则。
+
+#### 返回值：
+返回累加后的结果，类型与初始值 `init` 的类型一致。
+
+---
+
+### **示例 1：求和**
+
+#include <iostream>
+#include <vector>
+#include <numeric> // std::accumulate
+
+int main() {
+    std::vector<int> nums = {1, 2, 3, 4, 5};
+    int sum = std::accumulate(nums.begin(), nums.end(), 0);
+    std::cout << "Sum: " << sum << std::endl; // 输出：Sum: 15
+    return 0;
+}
+
+- 这里的 `init` 是 `0`，因此从 `0` 开始累加容器中的每个元素。
+
+---
+
+### **示例 2：自定义累加规则（乘积）**
+
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+int main() {
+    std::vector<int> nums = {1, 2, 3, 4, 5};
+    int product = std::accumulate(nums.begin(), nums.end(), 1, [](int a, int b) {
+        return a * b;
+    });
+    std::cout << "Product: " << product << std::endl; // 输出：Product: 120
+    return 0;
+}
+
+- 这里使用了自定义规则（`a * b`）来求乘积，初始值设置为 `1`。
+
+---
+
+### **示例 3：字符串连接**
+`std::accumulate` 不仅限于数值运算，还可以用于字符串操作：
+
+#include <iostream>
+#include <vector>
+#include <numeric>
+#include <string>
+
+int main() {
+    std::vector<std::string> words = {"Hello", " ", "World", "!"};
+    std::string sentence = std::accumulate(words.begin(), words.end(), std::string(""));
+    std::cout << "Sentence: " << sentence << std::endl; // 输出：Sentence: Hello World!
+    return 0;
+}
+
+- 初始值是空字符串 `""`，然后通过累加每个单词构建最终字符串。
+
+---
+
+### **示例 4：二维数组的行元素和**
+
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+int main() {
+    std::vector<std::vector<int>> accounts = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    int maxWealth = 0;
+
+    for (const auto& account : accounts) {
+        int wealth = std::accumulate(account.begin(), account.end(), 0);
+        maxWealth = std::max(maxWealth, wealth);
+    }
+
+    std::cout << "Max Wealth: " << maxWealth << std::endl; // 输出：Max Wealth: 24
+    return 0;
+}
+
+- 用 `std::accumulate` 求二维数组每一行的和，并找出最大值。
+
+---
+
+### **适用场景**
+1. **快速求和**：用于对容器中的元素进行累加。
+2. **自定义操作**：通过自定义规则完成乘积、字符串连接等操作。
+3. **代码简化**：减少手动累加逻辑，代码更清晰。
+
+---
+在 `std::accumulate` 中，参数 **`op`** 是一个**可选的自定义二元操作函数或函数对象**，用来定义如何将当前累积值和下一个元素进行处理。它允许你灵活地指定累积规则，而不仅仅是简单的加法。
+
+---
+
+### **`op` 的作用**
+默认情况下，`std::accumulate` 会使用加法 (`+`) 将容器的元素累加起来。但是，如果你需要执行其他的操作，比如乘法、字符串拼接、条件累积等，可以通过传递自定义的操作函数来实现。
+
+---
+
+### **二元操作的定义**
+- **二元操作函数** 是一个接受两个参数并返回一个结果的函数。
+- 它可以是：
+  1. **函数指针**：例如 `std::plus<int>`。
+  2. **Lambda 表达式**：`[](int a, int b) { return a * b; }`。
+  3. **函数对象（Functor）**：如 `std::multiplies<int>`。
+
+---
+
+### **语法**
+
+std::accumulate(begin, end, init, op);
+
+
+- **`init`**：累积的初始值。
+- **`op`**：你定义的二元操作函数，用来决定累积规则。
+
+---
+
+### **例子**
+#### **1. 使用默认加法操作**
+如果不传递 `op` 参数，`std::accumulate` 默认使用加法：
+
+#include <iostream>
+#include <vector>
+#include <numeric> // 包含 std::accumulate
+
+int main() {
+    std::vector<int> nums = {1, 2, 3, 4, 5};
+    int sum = std::accumulate(nums.begin(), nums.end(), 0); // 默认加法
+    std::cout << "Sum: " << sum << std::endl; // 输出：Sum: 15
+    return 0;
+}
+
+
+#### **2. 自定义乘法操作**
+通过 `op` 参数指定一个自定义操作，这里使用 Lambda 表达式实现乘法：
+
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+int main() {
+    std::vector<int> nums = {1, 2, 3, 4};
+    int product = std::accumulate(nums.begin(), nums.end(), 1, [](int a, int b) {
+        return a * b;
+    });
+    std::cout << "Product: " << product << std::endl; // 输出：Product: 24
+    return 0;
+}
+
+- `op` 是一个 Lambda 表达式，定义了累积规则为：两个数相乘。
+
+#### **3. 自定义字符串拼接**
+`std::accumulate` 可以操作非数值数据，例如字符串拼接：
+
+#include <iostream>
+#include <vector>
+#include <numeric>
+#include <string>
+
+int main() {
+    std::vector<std::string> words = {"Hello", " ", "World", "!"};
+    std::string sentence = std::accumulate(words.begin(), words.end(), std::string(""), [](const std::string& a, const std::string& b) {
+        return a + b;
+    });
+    std::cout << "Sentence: " << sentence << std::endl; // 输出：Sentence: Hello World!
+    return 0;
+}
+
+- 这里的 `op` 是一个 Lambda 表达式，将两个字符串累积成一个大字符串。
+
+#### **4. 复杂条件累积**
+统计数组中大于 10 的数值之和：
+
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+int main() {
+    std::vector<int> nums = {5, 15, 25, 10, 30};
+    int sum = std::accumulate(nums.begin(), nums.end(), 0, [](int a, int b) {
+        return b > 10 ? a + b : a;
+    });
+    std::cout << "Sum of numbers > 10: " << sum << std::endl; // 输出：Sum of numbers > 10: 70
+    return 0;
+}
+
+- `op` 定义了一个条件累积规则：只有当 `b > 10` 时，才将 `b` 累积到结果中。
+
+---
