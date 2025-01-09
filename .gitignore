@@ -1,6 +1,11 @@
 .idea/
-.idea/*.iml
+
 *.iml
 .vscode/
 *.class
 
+
+!*.c
+!*.cpp
+!*.java
+!*.py
