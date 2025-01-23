@@ -1,0 +1,142 @@
+在 C++ 中，`const` 是一个非常重要的关键字，用于表示某些变量、参数、成员函数或返回值是 **不可修改的**。在函数参数中使用 `const` 有以下几个主要原因：
+
+---
+
+### **1. 防止修改参数**
+当一个函数的参数是通过引用或指针传递时，使用 `const` 可以防止函数意外地修改传入的实参，从而保护数据的完整性。
+
+**示例：**
+
+```cpp
+void printVector(const std::vector<int>& v) {
+    for (int x : v) {
+        std::cout << x << " ";
+    }
+    // v.push_back(10); // 错误：v 是 const，不能修改
+}
+```
+
+在上面的例子中，`v` 是通过引用传递的。如果不加 `const`，函数内部就可以修改 `v` 的内容，而加上 `const` 后，编译器会阻止对 `v` 的任何修改操作。
+
+**好处：**
+- 明确告诉调用者，函数不会修改传入的数据。
+- 避免由于误操作导致的数据被意外修改。
+
+---
+
+### **2. 提高代码的可读性**
+使用 `const` 可以让代码更加清晰和自文档化。它表明某个变量或参数在函数内部不会被修改。
+
+**示例：**
+
+```cpp
+double calculateAverage(const std::vector<int>& numbers) {
+    double sum = 0;
+    for (int num : numbers) {
+        sum += num;
+    }
+    return sum / numbers.size();
+}
+```
+
+在这个例子中，`numbers` 是只读的，函数的逻辑清晰地表明它不会修改 `numbers`。这对代码的可读性和维护性非常有帮助。
+
+---
+
+### **3. 支持常量对象的调用**
+如果一个对象是 `const` 的，那么它只能调用那些不会修改其状态的函数。如果函数的参数没有声明为 `const`，则无法对常量对象使用该函数。
+
+**示例：**
+
+```cpp
+class MyClass {
+public:
+    void print() const {
+        std::cout << "This is a const function." << std::endl;
+    }
+};
+
+int main() {
+    const MyClass obj; // 常量对象
+    obj.print();       // OK，因为 print() 是 const 成员函数
+    return 0;
+}
+```
+
+如果 `print()` 没有声明为 `const`，则无法对 `const MyClass obj` 调用它。
+
+---
+
+### **4. 避免拷贝，提高性能**
+当传递大型对象（如 `std::vector` 或 `std::string`）时，通过 **引用传递** 可以避免拷贝对象，提升性能。但如果函数不需要修改该对象，使用 `const` 可以保证安全性。
+
+**示例：**
+
+```cpp
+void processLargeData(const std::vector<int>& data) {
+    // 只读操作
+    for (int x : data) {
+        std::cout << x << " ";
+    }
+}
+```
+
+在这个例子中，`data` 是通过引用传递的，避免了拷贝操作。同时，`const` 确保了 `data` 不会被修改。
+
+---
+
+### **5. 避免意外错误**
+在函数中，参数如果没有声明为 `const`，可能会因为疏忽而修改了它的内容，导致难以发现的 bug。通过使用 `const`，可以让编译器帮助你检测这些错误。
+
+**示例：**
+
+```cpp
+void processData(const std::vector<int>& data) {
+    // data.push_back(10); // 错误！data 是 const，不能修改
+}
+```
+
+如果没有 `const`，程序员可能会意外修改 `data`，导致调用者的数据被破坏。
+
+---
+
+### **6. 与指针结合使用**
+当参数是指针时，`const` 可以分别修饰指针本身和指针指向的内容：
+
+- **指针指向的内容是常量：**
+  ```cpp
+  void print(const int* ptr) {
+      std::cout << *ptr << std::endl;
+      // *ptr = 10; // 错误：不能修改指针指向的内容
+  }
+  ```
+
+- **指针本身是常量：**
+  ```cpp
+  void print(int* const ptr) {
+      std::cout << *ptr << std::endl;
+      *ptr = 10; // OK：可以修改指针指向的内容
+      // ptr = nullptr; // 错误：不能修改指针本身
+  }
+  ```
+
+- **指针和指针指向的内容都是常量：**
+  ```cpp
+  void print(const int* const ptr) {
+      std::cout << *ptr << std::endl;
+      // *ptr = 10; // 错误：不能修改指针指向的内容
+      // ptr = nullptr; // 错误：不能修改指针本身
+  }
+  ```
+
+---
+
+### **总结：为什么使用 `const`？**
+
+1. **防止意外修改**：保护数据不被修改，避免潜在错误。
+2. **提高代码可读性**：让代码更清晰，明确哪些数据是只读的。
+3. **支持常量对象**：允许常量对象调用函数。
+4. **性能优化**：通过引用传递避免拷贝，同时保证安全性。
+5. **编译器帮助检查**：通过 `const` 让编译器帮助你检测不必要的修改。
+
+在 C++ 编程中，养成习惯尽量对不需要修改的变量、参数和成员函数使用 `const` 是一种良好的实践，可以让代码更加安全、清晰和高效。
