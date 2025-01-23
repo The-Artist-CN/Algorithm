@@ -71,3 +71,12 @@
 - **`operator<, operator<=, operator>, operator>=`**: 按字典顺序比较两个 `vector`。
 
 ---
+构造函数	用途
+vector<T>()	创建一个空的 vector。
+vector<T>(size_t n)	创建大小为 n 的 vector，元素初始化为默认值。
+vector<T>(size_t n, const T& value)	创建大小为 n 的 vector，所有元素初始化为 value。
+vector<T>(const vector<T>& other)	拷贝构造函数，深拷贝另一个 vector。
+vector<T>(vector<T>&& other)	移动构造函数，将另一个 vector 的内容转移到当前对象。
+vector<T>(std::initializer_list<T> il)	使用初始化列表创建 vector。
+vector<T>(InputIterator first, InputIterator last)	使用迭代器范围 [first, last) 初始化 vector。
+vector<T>(const Alloc& alloc)	使用自定义分配器创建 vector。
