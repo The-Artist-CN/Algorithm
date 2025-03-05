@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 
 
+
 public class Solution_35 {
     
     public static int binarySearch(int[] nums , int numsize , int target){
