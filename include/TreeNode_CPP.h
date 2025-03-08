@@ -9,15 +9,16 @@ public:
     TreeNode* left;
     TreeNode* right;
 
-    TreeNode(int val) : val(val) , left(nullptr) , right(nullptr) {};
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 
-    ~TreeNode() { delete left ; delete right; };
 
 };
 
-TreeNode* createTreeNode(int val){
-    return new TreeNode(val);
-}
+    TreeNode* createTreeNode(int val){
+        return new TreeNode(val);
+    }
 
 
 #endif
