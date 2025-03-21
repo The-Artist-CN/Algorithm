@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_set>
+#include <algorithm>
 
 using namespace std;
 
@@ -50,9 +51,40 @@ int missingNumberV4(vector<int>& nums) {
     return result; // 缺失的数字
 }
 
+//Mar 19 14:00PM
+
+int findMissingV1(vector<int>& nums){
+    int sumArray = 0;
+    int targetArray = 0;
+    for (int i = 0;i<= nums.size();i++){
+        sumArray += i;
+    }
+
+    for (int i = 0; i < nums.size();i++){
+        targetArray += nums[i];
+    }
+    return sumArray - targetArray;
+
+}
+
+int findMissingV2(vector<int>& nums){
+    int r1 = 0 , r2 = 0;
+    for (int i = 0; i <= nums.size();i++){
+        r1 ^= i;
+    }
+    for (int i = 0; i < nums.size();i++){
+        r2 ^= nums[i];
+    }
+
+    return r1^r2;
+}
+
 int main() {
     vector<int> nums = {9, 6, 4, 2, 3, 5, 7, 0, 1};
     cout << "缺失的数字是: " << missingNumberV1(nums) << endl; // 输出 8
+
+    cout << "Mar 19 14:00PM Missing number is : " << findMissingV1(nums) << endl;
+    cout << "Mar 19 14:00PM Missing number is : " << findMissingV2(nums) << endl;
     return 0;
 }
 
