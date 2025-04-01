@@ -5,6 +5,7 @@
 
 
 ListNode* removeDuplicate(ListNode* head);
+ListNode* removeDuplicateNode_v2(ListNode* head);
 ListNode* createLinkedList(std::vector<int>& array);
 void printLinkedList(ListNode* head);
 
@@ -18,7 +19,7 @@ int main() {
     // 示例2
     std::vector<int> arr2 = {1, 1, 1, 1, 2};
     ListNode* head2 = createLinkedList(arr2);
-    head2 = removeDuplicate(head2);
+    head2 = removeDuplicateNode_v2(head2);
     printLinkedList(head2); // 输出: 1 2
 
     return 0;
@@ -64,4 +65,31 @@ void printLinkedList(ListNode* head) {
         current = current->next;
     }
     std::cout << std::endl;
+}
+
+// Apr 1 13:00PM
+
+
+ListNode* removeDuplicateNode_v2(ListNode* head){
+    if (head == nullptr){
+        return nullptr;
+    }
+
+    ListNode* current = head;
+    ListNode* prev = nullptr;
+    std::unordered_set<int> seen;
+
+    while (current){
+        if (seen.find(current->val) != seen.end()){
+            prev->next = current->next;
+            delete current;
+            current = prev->next;
+        } else {
+            seen.insert(current->val);
+            prev = current;
+            current = current->next;
+        }
+    }
+
+    return head;
 }
