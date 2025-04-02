@@ -12,6 +12,21 @@ void BubbleSort(int arr[] , int n){
     }
 }
 
+//Apr 2 9:00AM
+
+void BubbleSortV2(int arr[] , int size){
+    for (int i = 0 ; i < size-1 ; i++){
+        for (int j = 0 ; j < size - i - 1 ;j++){
+            if (arr[j] > arr[j+1]){
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+
+            }
+        }
+    }
+}
+
 void SelectionSort(int arr[] , int n){
     for (int i = 0 ; i < n - 1; i++){
         int minIndex = i;
@@ -39,7 +54,7 @@ void insertionSort(int arr[], int n) {
 
 
 int main(){
-    int arr[] = {3,2,5,4,7,6,8,0,9,1};
+    int arr[] = {3,2,5,4,7,6,8,0,9,1,10,19,18,14,13,12,16,17};
     int n = sizeof(arr) / sizeof(arr[0]);
 
     for (int a : arr){
@@ -53,6 +68,8 @@ int main(){
     for (int a : arr){
         std::cout << a << " ";
     }
+
+    BubbleSortV2(arr,n);
 
 
     return 0;

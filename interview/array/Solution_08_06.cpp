@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class Solution {
+class First {
 public:
     void hanota(vector<int>& A, vector<int>& B, vector<int>& C) {
         stack<int> source, auxiliary, target;
@@ -49,12 +49,36 @@ private:
     }
 };
 
+//Apr 2 8:00PM
+
+class Second {
+public:
+    void hanota(vector<int>& A, vector<int>& B, vector<int>& C) {
+        int n = A.size();
+        move(n,A,B,C);
+    }
+
+    void move(int n , vector<int>& A, vector<int>& B, vector<int>& C){
+        if (n==1){
+            C.push_back(A.back());
+            A.pop_back();
+            return;
+        }
+        move(n-1,A,C,B);
+        C.push_back(A.back());
+        A.pop_back();
+        move(n-1,B,A,C);
+
+
+    }
+};
+
 int main() {
-    Solution sol;
+    First f ;
     vector<int> A = {3, 2, 1, 0};  // 从大到小排列，0是最小的盘子
     vector<int> B, C;
 
-    sol.hanota(A, B, C);
+    f.hanota(A, B, C);
 
     cout << "Result in C: ";
     for (int num : C) {
