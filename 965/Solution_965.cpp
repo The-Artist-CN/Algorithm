@@ -1,7 +1,7 @@
 #include <iostream>
+#include "LOG_CPP.h"
 using namespace std;
 
-// 定义二叉树节点结构
 struct TreeNode {
     int val;
     TreeNode* left;
@@ -9,24 +9,32 @@ struct TreeNode {
     TreeNode(int val) : val(val), left(nullptr), right(nullptr) {}
 };
 
-// 提前声明 helper 函数
 bool helper(TreeNode* root, int val);
 
-// 判断是否是单值二叉树
 bool isUnivalTree(TreeNode* root) {
     if (!root) return true; // 空树是单值二叉树
     int val = root->val; // 获取根节点的值
     return helper(root, val); // 调用辅助函数检查
 }
 
-// 辅助递归函数
 bool helper(TreeNode* root, int val) {
     if (!root) return true; // 空节点不影响结果
     if (root->val != val) return false; // 如果节点值不等于根节点值，返回 false
     return helper(root->left, val) && helper(root->right, val); // 递归检查左右子树
 }
 
-// 测试代码
+
+class Solution {
+public:
+    bool isUniversal(TreeNode* root){
+        if (!root) return true;
+        if (root->left && root->val != root->left->val) return false;
+        if (root->right && root->val != root->right->val) return false;
+
+        return isUnivalTree(root->left) && isUnivalTree(root->right);
+    }
+};
+
 int main() {
     // 构建一个单值二叉树
     //     1
@@ -41,7 +49,9 @@ int main() {
     root->left->right = new TreeNode(1);
     root->right->right = new TreeNode(1);
 
-    cout << boolalpha << isUnivalTree(root) << endl; // 输出: true
+    Solution sol;
+    LOG_INFO("Apr 6 14:00PM : The second test result");
+    cout << sol.isUniversal(root) << endl;
 
     // 构建一个非单值二叉树
     //     1
@@ -56,7 +66,8 @@ int main() {
     root2->left->right = new TreeNode(1);
     root2->right->right = new TreeNode(1);
 
-    cout << boolalpha << isUnivalTree(root2) << endl; // 输出: false
+    LOG_INFO("Apr 6 14:00PM : The second test result");
+    cout << sol.isUniversal(root2) << endl;
 
     // 释放内存（简单示例中省略）
     return 0;
