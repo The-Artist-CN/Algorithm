@@ -1,5 +1,6 @@
 #include <iostream>
 #include "TreeNode_CPP.h"
+#include "LOG_CPP.h"
 
 using namespace std;
 
@@ -20,10 +21,25 @@ bool isSame(TreeNode* t1 , TreeNode* t2){
 
 }
 
-bool isSubtree(TreeNode* host , TreeNode* sub){
+bool isSub(TreeNode* host , TreeNode* sub){
     if (!host || !sub) return false;
     if (isSame(host,sub)) return true;
-    return isSubtree(host->left,sub) || isSubtree(host->right,sub);
+    return isSub(host->left,sub) || isSub(host->right,sub);
+}
+
+//Apr 7 13:00PM
+
+bool isSameTree(TreeNode* t1 , TreeNode* t2){
+    if (!t1 && !t2) return true;
+    if (!t1 || !t2) return false;
+    if (t1->val != t2->val) return false;
+    return isSameTree(t1->left , t2->left) || isSameTree(t1->right,t2->right);
+}
+
+bool isSubTree(TreeNode* host , TreeNode* sub){
+    if (!host || !sub) return false;
+    if (isSameTree(host,sub)) return true;
+    return isSubTree(host->left,sub) || isSubTree(host->right,sub);
 }
 
 
@@ -40,11 +56,10 @@ int main() {
     subRoot->left = new TreeNode(1);
     subRoot->right = new TreeNode(2);
 
-    // 检查是否为子树
-    if (isSubtree(root, subRoot)) {
-        cout << "subRoot 是 root 的子树" << endl;
+    if (isSubTree(root, subRoot)) {
+        LOG_INFO("subRoot 是 root 的子树");
     } else {
-        cout << "subRoot 不是 root 的子树" << endl;
+        LOG_INFO("subRoot 不是 root 的子树");
     }
 
     // 清理内存（这里可以加释放内存代码）
