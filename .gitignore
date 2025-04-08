@@ -4,6 +4,7 @@
 
 # 忽略输出目录的所有文件
 out/
+note/
 
 *.iml
 .vscode/
