@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class Solution {
@@ -19,52 +20,74 @@ public:
             if (found) return i;
         }
         return -1;
-    int strStr(string s, string p) {
-        int n = s.size(), m = p.size();
-        if(m == 0) return 0;
-        //设置哨兵
-        s.insert(s.begin(),' ');
-        p.insert(p.begin(),' ');
-        vector<int> next(m + 1);
-        //预处理next数组
-        for(int i = 2, j = 0; i <= m; i++){
-            while(j and p[i] != p[j + 1]) j = next[j];
-            if(p[i] == p[j + 1]) j++;
-            next[i] = j;
+    }
+
+    vector<int> computeLSP(const string& pattern){
+        int n = pattern.length();
+        vector<int> lsp(n,0);
+        int len = 0;
+        int i = 1;
+
+        while (i < n){
+            if (pattern[i] == pattern[len]){
+                len++;
+                lsp[i] = len;
+                i++;
+            } else {
+                if (len != 0){
+                    len = lsp[len - 1];
+                } else {
+                    lsp[i] = 0;
+                    i++;
+                }
+            }
         }
-        //匹配过程
-        for(int i = 1, j = 0; i <= n; i++){
-            while(j and s[i] != p[j + 1]) j = next[j];
-            if(s[i] == p[j + 1]) j++;
-            if(j == m) return i - m;
+
+        return lsp;
+    }
+
+    int find_str_in_String_use_kmp(const string& source , const string& target){
+        if (source.empty()) return -1;
+        if (target.empty()) return 0;
+
+        int m = source.length();
+        int n = target.length();
+
+        vector<int> lsp = computeLSP(target);
+
+        int i = 0;
+        int j = 0;
+
+        while (i < m){
+            if (source[i] == target[j]){
+                i++;
+                j++;
+
+                if (j == n){
+                    return i - j;
+                }
+            } else {
+                if (j != 0 ){
+                    j = lsp[j-1];
+                } else {
+                    i++;
+                }
+            }
         }
-        return -1;
+
+        return  -1 ;
     }
 };
-
 int main() {
+    string text = "ABABDABACDABABCABAB";
+    string pattern = "ABABCABAB";
     Solution sol;
-    string source = "hello world";
+    int pos = sol.find_str_in_String_use_kmp(text, pattern);
     
-    // 测试用例 1
-    string target = "world";
-    int index = sol.find_str_in_String(source, target);
-    cout << "Index of first occurrence: " << index << endl;  // 输出: 6
-    
-    // 测试用例 2
-    target = "hello";
-    index = sol.find_str_in_String(source, target);
-    cout << "Index of first occurrence: " << index << endl;  // 输出: 0
-    
-    // 测试用例 3
-    target = "test";
-    index = sol.find_str_in_String(source, target);
-    cout << "Index of first occurrence: " << index << endl;  // 输出: -1
-    
-    // 测试用例 4
-    target = "";
-    index = sol.find_str_in_String(source, target);
-    cout << "Index of first occurrence: " << index << endl;  // 输出: 0
-    
+    if (pos != -1) {
+        cout << "模式串在主串的位置: " << pos << endl;  // 输出 10
+    } else {
+        cout << "未找到模式串" << endl;
+    }
     return 0;
 }
