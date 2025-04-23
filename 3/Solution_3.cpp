@@ -22,4 +22,20 @@ public:
         
         return maxLength;
     }
+    int lofls(string s){
+        unordered_set<char> res;
+        int left = 0;
+        int max_value = 0;
+
+        for (int right = 0 ; right < s.length() ;right++){
+            while (res.find(s[right] != res.end())){
+                res.erase(s[left]);
+                left++;
+            }
+            res.insert(s[right]);
+            max_value = std::max(max_value,right-left+1);
+        }
+
+        return max_value;
+    }
 };
