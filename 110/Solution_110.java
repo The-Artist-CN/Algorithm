@@ -1,7 +1,7 @@
 
 public class Solution_110 {
     public static void main(String[] args) {
-        // 示例测试代码
+
         TreeNode root = new TreeNode(3);
         root.left = new TreeNode(9);
         root.right = new TreeNode(20);
