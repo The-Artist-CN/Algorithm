@@ -28,6 +28,17 @@ public:
         
         return res;
     }
+    
+    int maxSubArrayV2(vector<int>& nums) {
+        if (nums.empty()) return 0; // 处理空数组
+        int res = nums[0]; // 初始化结果为第一个元素
+        int cur = nums[0]; // 当前子数组和初始化为第一个元素
+        for (int i = 1; i < nums.size(); i++) {
+            cur = max(nums[i], cur + nums[i]); // 选择是否抛弃之前的子数组
+            res = max(res, cur); // 更新全局最大值
+        }
+        return res;
+    }
 };
 
 // 测试代码
