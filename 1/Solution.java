@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 
-public class Solution {
+public class Solution_1 {
   
   public int[] twoSum(int[] nums , int target){
     int length = nums.length;
@@ -12,17 +12,16 @@ public class Solution {
         }
       }
     }
-
     return new int[0];
   }
 
-
-
-
-  public static void main(String[] args){
-    int[] nums = {1,3,4,5,6};
-    int target = 7;
-    Solution solution = new Solution();
-    System.out.println(Arrays.toString(solution.twoSum(nums , target)));
-  }
+  public int[] twoSum(int[] nums, int target) {
+     Map<Integer,Integer> m = new HashMap<Integer,Integer>();
+        for (int i = 0 ; i < nums.length ; i++){
+            if (m.containsKey(target-nums[i])) return new int[]{m.get(target-nums[i]),i};
+            m.put(nums[i] , i);
+        }
+        return new int[0];
+    }
 }
+
