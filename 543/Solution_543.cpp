@@ -19,13 +19,23 @@ public:
     }
 };
 
-int main(){
-    Solution sol;
-    cls::ClsTreeNode* root = buildTree<cls::ClsTreeNode>({1, 2, 3, 4, 5, 6, 7});
-        int expected = 4;
-        int result = sol.diameterOfBT(root);
-        std::cout << "Test Case - Balanced tree: "
-             << (result == expected ? "PASSED" : "FAILED")
-             << " (Expected: " << expected << ", Got: " << result << ")\n";
-    return 0;
-}
+
+// Mar 3 15:00PM
+class Solution {
+    int ans = 1;
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+        depth(root);
+        return ans - 1;
+    }
+private:
+    int depth(TreeNode* node){
+        if (node == nullptr){
+            return 0;
+        }
+        int left = depth(node->left);
+        int right = depth(node->right);
+        ans = max(ans,left+right+1);
+        return max(left,right) + 1;
+    }
+};

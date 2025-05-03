@@ -2,52 +2,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Solution_3 {
-    public static void main(String[] args){
-        Solution sol = new Solution();
-    
-        // 1. Empty string
-        System.out.println(sol.lengthOfTheLongestSubString("")); // Expected: 0
-    
-        // 2. All identical characters
-        System.out.println(sol.lengthOfTheLongestSubString("aaaaa")); // Expected: 1
-    
-        // 3. Entire string is unique
-        System.out.println(sol.lengthOfTheLongestSubString("abcdefg")); // Expected: 7
-    
-        // 4. String with spaces
-        System.out.println(sol.lengthOfTheLongestSubString("a b c d e")); // Expected: 5
-    
-        // 5. Mixed case sensitivity
-        System.out.println(sol.lengthOfTheLongestSubString("aAabBbcC")); // Expected: 3 (case sensitive)
-    
-        // 6. Unicode characters
-        System.out.println(sol.lengthOfTheLongestSubString("你好世界你好")); // Expected: 4
-    
-        // 7. Very long string with repeating pattern
-        String longStr = "abc".repeat(10000) + "xyz".repeat(10000);
-        System.out.println(sol.lengthOfTheLongestSubString(longStr)); // Expected: 3 (from "xyz")
-    
-        // 8. String with special characters
-        System.out.println(sol.lengthOfTheLongestSubString("!@#$%^&*()")); // Expected: 10
-    
-        // 9. String with numbers
-        System.out.println(sol.lengthOfTheLongestSubString("112233445566")); // Expected: 2
-    
-        // 10. Alternating duplicates
-        System.out.println(sol.lengthOfTheLongestSubString("ababababab")); // Expected: 2
-    
-        // 11. Single character
-        System.out.println(sol.lengthOfTheLongestSubString("z")); // Expected: 1
-    
-        // 12. Newline and control characters
-        System.out.println(sol.lengthOfTheLongestSubString("a\nb\tc\rd")); // Expected: 4
-    
-        // 13. String with all possible ASCII characters
-        StringBuilder allAscii = new StringBuilder();
-        for (int i = 0; i < 128; i++) {
-            allAscii.append((char)i);
+    public int lengthOfLongestSubstring(String s) {
+        if (s == null || s.isEmpty()) {
+            return 0;
         }
-        System.out.println(sol.lengthOfTheLongestSubString(allAscii.toString())); // Expected: 128
+
+        Map<Character, Integer> map = new HashMap<>();
+        int left = 0;
+        int max = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+            char currentChar = s.charAt(right);
+
+            // 如果当前字符已经存在，并且其索引 >= left，则更新 left
+            if (map.containsKey(currentChar) && map.get(currentChar) >= left) {
+                left = map.get(currentChar) + 1; // 直接跳到重复字符的下一个位置
+            }
+
+            map.put(currentChar, right); // 更新字符的最新位置
+            max = Math.max(max, right - left + 1);
+        }
+
+        return max;
     }
 }
 
