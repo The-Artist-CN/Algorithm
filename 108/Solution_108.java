@@ -2,25 +2,7 @@
 
 
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(){};
-    TreeNode(int val){
-        this.val = val;
-        this.left = null;
-        this.right = null;
-    }
-}
-
-public class Solution {
-    public static void main(String[] args){
-        int[] nums = {1,2,3,4,5,6,7,8,9};
-        Solution solution = new Solution();
-        TreeNode root = solution.sortArrayToBST(nums);
-        System.out.println(root);
-    }
+public class Solution_108 {
 
     public TreeNode sortArrayToBST(int[] nums){
         TreeNode root = inorder(nums,0,nums.length-1);
