@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Solution_394 {
+public class Solution_349 {
 
     public List<Integer> intersection(int[] num1, int[] num2) {
         List<Integer> result = new ArrayList<>();
