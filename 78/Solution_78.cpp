@@ -4,10 +4,10 @@
 using namespace std;
 
 class Solution_78 {
-public:
     vector<int> t;
     vector<vector<int>> ans;
 
+public:
     vector<vector<int>> subsets(vector<int>& nums) {
         int n = nums.size();
         for (int mask = 0; mask < (1 << n); ++mask) {
@@ -21,23 +21,26 @@ public:
         }
         return ans;
     }
+
+    vector<vector<int>> subsetsRecur(vector<int>& nums){
+        subsetsRecur(0,nums);
+        return ans;
+    }
+
+private:
+    void subsetsRecur(int index , vector<int>& nums){
+
+        if (index == nums.size()){
+            ans.push_back(t);
+        }
+
+        t.push_back(nums[index]);
+        subsetsRecur(index+1,nums);
+        t.pop_back();
+        subsetsRecur(index+1,nums);
+        
+    }
 };
 
-int main() {
-    vector<int> nums = {1, 2, 3};
-    Solution_78 sol;
-    vector<vector<int>> result = sol.subsets(nums);
-    
-    for (const auto& subset : result) {
-        cout << "[";
-        for (size_t i = 0; i < subset.size(); ++i) {
-            cout << subset[i];
-            if (i != subset.size() - 1) {
-                cout << ",";
-            }
-        }
-        cout << "]" << endl;
-    }
-    
-    return 0;
-}
+
+
