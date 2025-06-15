@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Solution_6 {
+public class Solution {
 
     public static void main(String[] args) {
-        Solution_6 solution = new Solution_6();
+        Solution solution = new Solution();
         String s = "PAYPALISHIRING";
         int numRows = 3;
         String result = solution.convert(s, numRows);
