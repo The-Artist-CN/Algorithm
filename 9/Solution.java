@@ -1,4 +1,4 @@
-public class Solution_9 {
+public class Solution {
     public static boolean isPalindrome(int x) {
         // 负数或以0结尾但不为0的数都不是回文数
         if (x < 0 || (x % 10 == 0 && x != 0)) {
