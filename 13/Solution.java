@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class Solution_13 {
+public class Solution {
 
     Map<Character, Integer> mm = new HashMap<>();
     {
@@ -33,7 +33,7 @@ public class Solution_13 {
     }
 
     public static void main(String[] args) {
-        Solution_13 solution = new Solution_13();
+        Solution solution = new Solution();
         // 测试样例
         System.out.println(solution.romanToInt("III")); // 输出 3
         System.out.println(solution.romanToInt("IV"));  // 输出 4
