@@ -1,5 +1,5 @@
 
-public class Solution_19 {
+public class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {    
         ListNode pre = new ListNode(0);
         pre.next = head;
