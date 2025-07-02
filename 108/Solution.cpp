@@ -2,14 +2,19 @@
 #include <vector>
 using namespace std;
 
-// 定义二叉树节点
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
+/*  定义 struct TreeNode
 
+    struct TreeNode {
+        int val;
+        TreeNode *left;
+        TreeNode *right;
+        TreeNode() : val(0) , left(nullptr) , right(nullptr) {};
+        TreeNode(int val) : val(val) , left(nullptr) , right(nullptr) {};
+        TreeNode(int val , TreeNode *left , TreeNode *right) : val(val) , left(nullptr) , right(nullptr) {};
+
+    }
+
+*/
 // 递归函数，将升序数组转换为平衡二叉搜索树
 TreeNode* sortedArrayToBST(vector<int>& nums, int left, int right) {
     // 递归终止条件
