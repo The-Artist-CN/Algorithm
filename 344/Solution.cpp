@@ -11,16 +11,3 @@ public:
         }
     }
 };
-
-int main() {
-    std::vector<char> target = {'h','e','l','l','o'};
-    Solution solution;
-    solution.reverseString(target);
-    
-    for (char c : target) {
-        std::cout << c;
-    }
-    std::cout << std::endl;
-    
-    return 0;
-}
