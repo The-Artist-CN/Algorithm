@@ -1,6 +1,6 @@
 #include <vector>
 
-class Solution_495 {
+class Solution {
 public:
     int findPoisenedDuration(std::vector<int>& nums , int duration){
         int res = 0;
