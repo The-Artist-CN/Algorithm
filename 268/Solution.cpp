@@ -79,12 +79,3 @@ int findMissingV2(vector<int>& nums){
     return r1^r2;
 }
 
-int main() {
-    vector<int> nums = {9, 6, 4, 2, 3, 5, 7, 0, 1};
-    cout << "缺失的数字是: " << missingNumberV1(nums) << endl; // 输出 8
-
-    cout << "Mar 19 14:00PM Missing number is : " << findMissingV1(nums) << endl;
-    cout << "Mar 19 14:00PM Missing number is : " << findMissingV2(nums) << endl;
-    return 0;
-}
-
