@@ -10,6 +10,7 @@ note/
 .vscode/
 *.class
 
+.vs
 
 !*.c
 !*.cpp
